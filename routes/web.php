@@ -12,5 +12,32 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+})->name('index');
+
+Route::get('/metrics', function () {
+    return view('metrics');
+})->name('metrics');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+
+Route::group(['prefix'=>'admin','as'=>'admin.'], function () {
+    Route::get('/', function () {
+        return view('admin.index');
+    })->name('index');
+    Route::get('/upload', 'Admin\UploadExcelController@showPage')->name('uploadExcelPage');
+
+    Route::post('/uploadFile', 'Admin\UploadExcelController@uploadFile')->name('uploadFile');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
