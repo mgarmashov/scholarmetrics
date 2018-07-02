@@ -7,7 +7,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left info" style="position: initial">
-                <p>Thomas Sanchez</p>
+                <p>{{ Auth::user()->name . ' ' . Auth::user()->surname }}</p>
             </div>
         </div>
 

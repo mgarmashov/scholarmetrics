@@ -28,7 +28,7 @@ Route::get('/contact', function () {
 })->name('contact');
 
 
-Route::group(['prefix'=>'admin','as'=>'admin.'], function () {
+Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>'auth'], function () {
     Route::get('/', function () {
         return view('admin.index');
     })->name('index');
@@ -39,5 +39,4 @@ Route::group(['prefix'=>'admin','as'=>'admin.'], function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 

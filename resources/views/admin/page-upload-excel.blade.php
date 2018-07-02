@@ -29,7 +29,7 @@
                             <ul>
                                 @foreach(config('excelColumns') as $sheet=>$rows)
                                 <li>{{ $sheet }}
-                                    <ul>
+                                    <ul class="manyColumns">
                                         @foreach($rows as $column)
                                             <li>{{ $column }}</li>
                                         @endforeach

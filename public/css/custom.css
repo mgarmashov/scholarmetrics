@@ -1,0 +1,11 @@
+.manyColumns {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 8em;
+  margin-bottom: 1em; }
+  .manyColumns li {
+    page-break-inside: avoid;
+    break-inside: avoid; }
+
+/*# sourceMappingURL=custom.css.map */

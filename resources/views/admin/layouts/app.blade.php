@@ -3,29 +3,28 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Scholarmetrica Admin Panel</title>
+    <title>Scholarmetrics Admin Panel | @yield('title')</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="/assets/adminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/adminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/assets/adminLTE/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/adminLTE/bower_components/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="/assets/adminLTE/bower_components/Ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/adminLTE/bower_components/Ionicons/css/ionicons.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="/assets/adminLTE/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/adminLTE/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect. -->
-    <link rel="stylesheet" href="/assets/adminLTE/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/adminLTE/css/skins/skin-blue.min.css') }}">
     <!-- DataTables -->
-    <link rel="stylesheet" href="/assets/adminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-
+    <link rel="stylesheet" href="{{ asset('assets/adminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -50,12 +49,15 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini layout-boxed">
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-
-@include('admin.components.header')
-@include('admin.components.left-menu')
+@section('header')
+    @include('admin.components.header')
+@show
+@section('left-menu')
+    @include('admin.components.left-menu')
+@show
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -96,18 +98,18 @@ desired effect
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
-<script src="/assets/adminLTE/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="{{ asset('assets/adminLTE/bower_components/jquery/dist/jquery.min.js') }}"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="/assets/adminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="{{ asset('assets/adminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- DataTables -->
-<script src="/assets/adminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/assets/adminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="{{ asset('assets/adminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/adminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
-<script src="/assets/adminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="{{ asset('assets/adminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->
-<script src="/assets/adminLTE/bower_components/fastclick/lib/fastclick.js"></script>
+<script src="{{ asset('assets/adminLTE/bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="/assets/adminLTE/js/adminlte.min.js"></script>
+<script src="{{ asset('assets/adminLTE/js/adminlte.min.js') }}"></script>
 
 @stack('footer-scripts')
 
