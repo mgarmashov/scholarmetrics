@@ -1,11 +1,24 @@
-<div class="nav-tabs-custom" id="FileUploadData">
+<div class="box box-primary" id="resultsBlock">
+    <div class="box-header with-border">
+        <h3 class="box-title">Results</h3>
+    </div>
+    <div class="results-list">
+
+    </div>
+</div>
+<div class="nav-tabs-custom" id="fileDataBlock">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#{{ urlencode('Cites') }}" data-toggle="tab">Cites</a></li>
-        <li><a href="#{{ urlencode('Current Schools') }}" data-toggle="tab">Current Schools</a></li>
+        <li class="active"><a href="#resultsTab1" data-toggle="tab">Cites</a></li>
+        <li><a href="#resultsTab2" data-toggle="tab">Current Schools</a></li>
     </ul>
     <div class="tab-content">
+        @php $n=1; @endphp
         @foreach($data as $sheetname => $rows)
-        <div class="tab-pane" id="{{ urlencode($sheetname) }}">
+            @php
+                echo $n==1 ? "<div class='tab-pane active' id='resultsTab{$n}'>" : "<div class='tab-pane' id='resultsTab{$n}'>";
+                $n++;
+            @endphp
+
             <div class="box-body">
                 <table id="{{ urlencode($sheetname) }}Table" class="table table-bordered table-striped">
                     <thead>
