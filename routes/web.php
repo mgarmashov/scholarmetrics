@@ -40,3 +40,6 @@ Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>'auth'], function 
 Auth::routes();
 
 
+Route::get('/metrics/findPerson', 'MetricsController@getPersonList')->name('getPersonList');
+Route::get('/metrics/getList', 'MetricsController@getList')->name('getList');
+

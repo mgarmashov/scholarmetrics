@@ -26,19 +26,25 @@
                         <li>Names should be in 1st row</li>
                         <li>Data from 1st row isn't counted</li>
                         <li>Full list of columns
-                            <ul>
-                                @foreach(config('excelColumns') as $sheet=>$rows)
-                                <li>{{ $sheet }}
-                                    <ul class="manyColumns">
-                                        @foreach($rows as $column)
-                                            <li>{{ $column }}</li>
-                                        @endforeach
-                                    </ul>
-                                </li>
+                    </ul>
+                    @foreach (config('excelColumns') as $sheet => $rows)
+                        <div class="callout bg-aqua-active">
+                            <h4> {{ $sheet }}</h4>
+                            <ul class="col-md-3">
+                                @php $i=0 @endphp
+                                @foreach($rows as $column)
+                                    @if( $i!=0 && $i % 6 == 0)
+                            </ul><ul class="col-sm-3">
+                                @endif
+                                <li>{{ $column['excelColumnName'] }}</li>
+                                @php $i++ @endphp
                                 @endforeach
                             </ul>
-                        </li>
-                    </ul>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    @endforeach
+
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -79,6 +85,8 @@
 @endsection
 
 @push('footer-scripts')
+{{--    <script src="{{ asset('assets/adminLTE/plugins/jquery-tabledit-1.2.3/jquery.tabledit.js') }}"></script>--}}
+
     <script>
         $("#fileUploadForm").submit(function (e) {
             var formData = new FormData($(this)[0]);
@@ -94,13 +102,25 @@
                 cache: false,
                 processData: false,
                 beforeSend: function(){
-                    $('#fileDataBlock').remove();
+                    $('.dataBlock').remove();
                     $('#resultsBlock').append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>')
 
                 },
                 success: function(data)
                 {
                     $("#resultsBlock").replaceWith(data);
+                },
+                error: function(xhr)
+                {
+                    var res = xhr.responseJSON;
+                    $("#resultsBlock").replaceWith('<div class="box box-primary" id="resultsBlock">' +
+                        '<div class="box-header with-border">' +
+                        '    <h3 class="box-title">Results</h3>' +
+                        '</div>' +
+                        '<div class="box-body">' +
+                            '<div class="results-list">' + res.message + '</div>') +
+                        '</div>';
+
                 }
             });
 

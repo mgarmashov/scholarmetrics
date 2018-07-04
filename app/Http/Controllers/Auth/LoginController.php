@@ -53,10 +53,10 @@ class LoginController extends Controller
         $login = $request->get('login');
         $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'login';
 
-        return [
+        dd( [
             $field => $login,
             'password' => $request->get('password'),
-        ];
+        ]);
     }
 
     public function logout(Request $request)

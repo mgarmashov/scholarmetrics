@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Cites;
+use App\Models\Schools;
+use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -18,6 +21,7 @@ class UploadExcelController extends Controller
     protected $filePath;
     protected $columnsTitlesOrder;
     protected $spreadsheet;
+    protected $positions = [];
 
 
     protected function fileName(){
@@ -54,6 +58,7 @@ class UploadExcelController extends Controller
 
     protected function ifSheetsExist(){
         foreach ( array_keys(config('excelColumns')) as $sheet ){
+
             if( ! in_array($sheet, $this->sheetsTitles()) ){
                 abort (response()->json( ['error' => 500, 'message' => "Can't find sheet '$sheet' in file ".$this->originalName ], 500));
             }
@@ -65,8 +70,10 @@ class UploadExcelController extends Controller
         $rows = $this->spreadsheet->getSheetByName($sheet)->toArray();
 
         foreach ( config('excelColumns')[$sheet] as $column ){
-            if( !in_array($column, $rows[0] )){
-                abort (response()->json( ['error' => 500, 'message' => "Can't find column '$column' in sheet '$sheet'. Names of columns should be placed at first row." ], 500));
+            $column = $column['excelColumnName'];
+//            abort_unless(in_array($column, $rows[0]), 406, response()->json(['error' => 406, 'message' => "Can't find column '$column' in sheet '$sheet'. Names of columns should be placed at first row." ]));
+            if( ! in_array($column, $rows[0])){
+                abort (response()->json( ['error' => 406, 'message' => "Can't find column &laquo;<b>$column</b>&raquo; in sheet &laquo;<b>$sheet</b>&raquo;. Names of columns should be placed at first row." ], 406));
             }
 
             $this->columnsTitlesOrder[$sheet][$column] = array_search($column, $rows[0]);
@@ -91,7 +98,20 @@ class UploadExcelController extends Controller
             }
 
             foreach ( config('excelColumns')[$sheet] as $column ) {
-                $data[$i][$column] = $rows[$i][ $this->getColumnNumber($sheet, $column) ];
+
+
+                $column = $column['excelColumnName'];
+                $value = $rows[$i][ $this->getColumnNumber($sheet, $column) ];
+
+
+                if( defineDbColumnType($sheet, $column) == 'integer' ){
+                    $value = preg_replace('/[^0-9.]+/', '', $value);
+                }
+                if ($column == 'Position'){
+                    $this->positions[] = $value;
+                }
+
+                $data[$i][$column] = $value;
             }
         }
 
@@ -120,11 +140,62 @@ class UploadExcelController extends Controller
                 $output[$sheet] = $this->getData($sheet);
             }
         }
-//dd($output);
+        $this->writeCites($output);
+        $this->writeSchools($output);
+        $this->writePositions();
         return view('admin.layouts.upload-results', ['data'=> $output]);
     }
 
     public function showPage(){
         return view('admin.page-upload-excel');
     }
+
+
+
+    public function writeCites($data){
+
+        Cites::truncate();
+        $citesColumns = $data['Cites'];
+        unset($citesColumns[0]);
+        foreach ($citesColumns as $row){
+            $cites = new Cites();
+            foreach ($row as $excelColumnName => $value){
+                if($excelColumnName == 'shortlink'){
+                    $dbColumnName = 'shortlink';
+                } else {
+                    $dbColumnName = defineDbColumnName('Cites', $excelColumnName);
+                }
+
+                $cites->{$dbColumnName} = $value;
+            }
+            $cites->save();
+        }
+    }
+
+    public function writeSchools($data){
+
+        Schools::truncate();
+        $schoolsColumns = $data['Current Schools'];
+        unset($schoolsColumns[0]);
+        foreach ($schoolsColumns as $row){
+            $schools = new Schools();
+            foreach ($row as $excelColumnName => $value){
+
+                $dbColumnName = defineDbColumnName('Current Schools', $excelColumnName);
+
+                $schools->{$dbColumnName} = $value;
+            }
+            $schools->save();
+        }
+    }
+
+    protected function writePositions(){
+        Position::truncate();
+        foreach(array_unique($this->positions) as $name){
+            $position = new Position();
+            $position->name = $name;
+            $position->save();
+        }
+    }
+
 }

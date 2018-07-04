@@ -126,8 +126,8 @@ $('.searchBtn').click(function(event) {
 
     //Request to php
     $.ajax({
-        type: "POST",
-        url:"metrics/metrics.php",
+        type: "get",
+        url: getListUrl,
         data: {
             searchType: searchType,
             textValue: textValue

@@ -64,9 +64,17 @@
             </div>
             <!--#loadingTab.search-area.metrics__loading-->
         </div>
-        <script src="js/metrics.js"></script>
-        <script src="assets/Chart.min.js"></script>
-        <script src="js/charts.js"></script>
     </div>
 @endsection
+
+@push('footer-scripts')
+    <script>
+        var getPersonListUrl = '{{ route('getPersonList') }}';
+        var getListUrl = '{{ route('getList') }}';
+    </script>
+    <script src="js/metrics.js"></script>
+    <script src="assets/Chart.min.js"></script>
+    <script src="js/charts.js"></script>
+@endpush
+    {{--getPersonList--}}
 
