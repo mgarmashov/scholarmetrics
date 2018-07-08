@@ -80,7 +80,7 @@ body {
 .container {
   margin: 0 auto;
   padding: 0 1em;
-  max-width: 980px; }
+  max-width: 1200px; }
 
 .clearfix {
   clear: both; }
@@ -116,14 +116,15 @@ b {
 
 .usualParagraph {
   font-size: 1.2em;
-  margin: 1em 0 0 0;
   line-height: 2em; }
-  .usualParagraph a {
-    white-space: nowrap; }
-    .usualParagraph a i {
-      margin: 0 5px; }
-    .usualParagraph a:hover {
-      text-decoration: underline; }
+  .usualParagraph p {
+    margin-top: 1em; }
+  .usualParagraph a i {
+    margin: 0 5px; }
+  .usualParagraph a:hover {
+    text-decoration: underline; }
+  .usualParagraph ul {
+    font-size: 0.9em; }
 
 .text-center {
   text-align: center; }

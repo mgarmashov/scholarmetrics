@@ -8,6 +8,7 @@ use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\FillChartsInformation;
 
 use Carbon\Carbon;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -21,8 +22,12 @@ class UploadExcelController extends Controller
     protected $filePath;
     protected $columnsTitlesOrder;
     protected $spreadsheet;
-    protected $positions = [];
+    protected $positions = ['all_positions'];
 
+
+    public function showPage(){
+        return view('admin.page-upload-excel');
+    }
 
     protected function fileName(){
         return $this->file->getClientOriginalName();
@@ -88,7 +93,7 @@ class UploadExcelController extends Controller
     protected function getData($sheet, $shortlink = false){
         $data = [];
         $rows = $this->spreadsheet->getSheetByName($sheet)->toArray();
-
+//todo сделать получение заголовка отдельной функцией
         for($i = 0; $i < count($rows); $i++){
             if(empty($rows[$i][$this->getColumnNumber($sheet, 'Name')]) && empty($rows[$i][$this->getColumnNumber($sheet, 'Planning School')])){
                 continue;
@@ -134,21 +139,21 @@ class UploadExcelController extends Controller
 
         $output = [];
         foreach (array_keys(config('excelColumns')) as $sheet){
-            if ($sheet == "Cites"){
-                $output[$sheet] = $this->getData($sheet, true);
-            } else {
-                $output[$sheet] = $this->getData($sheet);
-            }
+
+            $output[$sheet] = $this->getData($sheet, $sheet == "Cites" ? true : false);
+
         }
         $this->writeCites($output);
         $this->writeSchools($output);
         $this->writePositions();
+
+        $pr = new FillChartsInformation;
+        $pr->writePositionRanks();
+
         return view('admin.layouts.upload-results', ['data'=> $output]);
     }
 
-    public function showPage(){
-        return view('admin.page-upload-excel');
-    }
+
 
 
 

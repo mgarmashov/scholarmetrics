@@ -2,14 +2,10 @@
     <div class="box-header with-border">
         <h3 class="box-title">Results</h3>
     </div>
-    <div class="box-body">
-        <div class="results-list">
+    <div class="results-list">
 
-        </div>
     </div>
-
 </div>
-
 @foreach($data as $sheetname => $rows)
 <div class="box box-primary dataBlock">
     <div class="box-header with-border">
@@ -29,7 +25,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                {{ count($rows) }}
                 @for($i=1; $i<count($rows); $i++)
                     <tr>
                         <td></td>
@@ -44,7 +39,7 @@
                 <tr>
                     <th></th>
                     <th>#</th>
-                    @foreach($rows[0] as $column)
+                    @foreach($rows[0] as $column => $value)
                         <th>{{ $column }}</th>
                     @endforeach
                 </tr>

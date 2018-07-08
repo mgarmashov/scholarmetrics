@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Scholarmetrics Admin Panel | @yield('title')</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="icon" type="image/png" href="{{ asset('img/favicon_admin.ico') }}">
     <link rel="stylesheet" href="{{ asset('assets/adminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('assets/adminLTE/bower_components/font-awesome/css/font-awesome.min.css') }}">
@@ -20,6 +21,7 @@
 {{--    <link rel="stylesheet" href="{{ asset('assets/adminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">--}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    @stack('styles')
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -86,12 +88,12 @@ desired effect
 
     <!-- Main Footer -->
     <footer class="main-footer">
-        <!-- To the right -->
-        <div class="pull-right hidden-xs">
-            Anything you want
-        </div>
-        <!-- Default to the left -->
-        <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+        {{--<!-- To the right -->--}}
+        {{--<div class="pull-right hidden-xs">--}}
+            {{--Anything you want--}}
+        {{--</div>--}}
+        {{--<!-- Default to the left -->--}}
+        {{--<strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.--}}
     </footer>
 
 </div>
@@ -115,7 +117,7 @@ desired effect
 <!-- AdminLTE App -->
 <script src="{{ asset('assets/adminLTE/js/adminlte.min.js') }}"></script>
 
-@stack('footer-scripts')
+@stack('scripts')
 
 </body>
 </html>

@@ -10,7 +10,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">File format Requirements</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
                         </button>
                     </div>
                     <!-- /.box-tools -->
@@ -23,9 +23,9 @@
                                 <b>"{{ $sheet }}"</b>
                             @endforeach
                             </li>
-                        <li>Names should be in 1st row</li>
-                        <li>Data from 1st row isn't counted</li>
-                        <li>Full list of columns
+                        <li>Column names should be in 1-st row</li>
+                        <li>Data from 1-st row isn't counted</li>
+                        <li>Full list of columns:
                     </ul>
                     @foreach (config('excelColumns') as $sheet => $rows)
                         <div class="callout bg-aqua-active">
@@ -84,8 +84,7 @@
     <!-- /.row -->
 @endsection
 
-@push('footer-scripts')
-{{--    <script src="{{ asset('assets/adminLTE/plugins/jquery-tabledit-1.2.3/jquery.tabledit.js') }}"></script>--}}
+@push('scripts')
 
     <script>
         $("#fileUploadForm").submit(function (e) {
@@ -103,6 +102,14 @@
                 processData: false,
                 beforeSend: function(){
                     $('.dataBlock').remove();
+                    $('#resultsBlock').replaceWith('<div class="box box-primary" id="resultsBlock">' +
+                        '                <div class="box-header with-border">' +
+                        '                    <h3 class="box-title">Results</h3>' +
+                        '                </div>' +
+                        '                <div class="results-list">' +
+                        '                </div>' +
+                        '            </div>');
+
                     $('#resultsBlock').append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>')
 
                 },

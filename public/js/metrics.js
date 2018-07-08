@@ -62,15 +62,15 @@ $(".search-area__searchLine").on("submit", function(event){
 //======================================
 if ((location.hash.split('#')[1])) {
     $.ajax({
-        type: "POST",
-        url:"metrics/metrics.php",
+        type: "get",
+        url: getPersonByShortlinkUrl,
         data: {
             searchType: 'person',
-            textValue: location.hash.split('#')[1],
-            shortlink: true
+            shortlink: location.hash.split('#')[1],
+            // shortlink: true
         },
         success:function(results){
-            var res=JSON.parse(results);
+            var res=results;
             var i = addPersonFoundContent(res);
             var resultHTMLblock = i[1];
             $('#personTab .search-area__rightSide').html(resultHTMLblock);
@@ -81,7 +81,16 @@ if ((location.hash.split('#')[1])) {
             // twttr.widgets.load();
 
             tooltip();
-            diagramAjax(res.persons[0].id, res.persons[0].firstName, res.persons[0].lastName, res.persons[0].total, res.persons[0].citationsFaculty, res.persons[0].position, res.persons[0].citationsRank, res.chartStat['all_positions'], res.chartStat[res.persons[0].position]);
+            diagramAjax(
+                res.persons[0].id,
+                res.persons[0].firstName,
+                res.persons[0].lastName,
+                res.persons[0].total,
+                res.persons[0].citationsFaculty,
+                res.persons[0].position,
+                res.persons[0].citationsRank,
+                res.chartStat['all_positions'],
+                res.chartStat[res.persons[0].position]);
             saveHistory('byLink');
 
         }
@@ -136,6 +145,7 @@ $('.searchBtn').click(function(event) {
 
 
         beforeSend: function(result) {
+            console.log(getListUrl);
             //hide everything and show "Loading" spinner
             $(currentTab+' .no-results').css('display','none');
             $(currentTab+' .search-area__results, '+currentTab+' .search-area__step2').fadeOut(200, function(){
@@ -146,7 +156,8 @@ $('.searchBtn').click(function(event) {
 
 
         success:function(results){
-            var res=JSON.parse(results);
+            // var res=JSON.parse(results);
+            var res=results;
             //console.log(results);
 
 
@@ -270,8 +281,8 @@ function addPersonFoundContent(res){
         personInfoBlocks +=
                 '</div>'+
                 '<h3 class="search-area__results-title">'+res.persons[i].lastName+', '+res.persons[i].firstName+'</h3>'+
-                '<span class="search-area__results-shortlink">'+location.protocol+'//'+location.host+/*location.pathname+(location.search?location.search:"")+*/"/person#"+res.persons[i].shortlink+'</span>'+
-                '<a href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Fscholarmetrics.%2Fmetrics.html&ref_src=twsrc%5Etfw&related=ScholarMetrics&text=Check%20out%20my%20ScholarMetrics%20profile%20at&tw_p=tweetbutton&url=http%3A%2F%2Fscholarmetrics.com%2Fperson%23'+res.persons[i].shortlink+'&via=ScholarMetrics" target="_blank" class="twitter-share-button" data-url="'+location.protocol+'//'+location.host+'/person#'+res.persons[i].shortlink+'" data-text="Check out my ScholarMetrics profile at" data-size="large"><img src="img/twitter-share.png" alt="Tweet"></a>'+
+                '<span class="search-area__results-shortlink">'+location.protocol+'//'+location.host+"/metrics/"+res.persons[i].shortlink+'</span>'+
+                '<a href="" target="_blank" class="twitter-share-button" data-url="'+location.protocol+'//'+location.host+'/metrics/'+res.persons[i].shortlink+'" data-text="Check out my ScholarMetrics profile at" data-size="large"><img src="/img/twitter-share.png" alt="Tweet"></a>'+
                 '<div class="search-area__results-text">'+
                     '<p><b>Position/rank: </b>'+res.persons[i].position+'</p>'+
                     '<p><b>University: </b>'+res.persons[i].university+'</p>'+
@@ -324,11 +335,12 @@ function addPersonFoundContent(res){
                     '<p><b>Citations:&nbsp;</b>'+res.persons[i].total+
                     '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>H-Index:&nbsp;</b>'+res.persons[i].h_index+'</p>'+
                     '<p><b>Citation percentile ranking compared to all faculty:&nbsp;</b>';
-                    if(res.persons[i].citationsFaculty != 'N/A'){personInfoBlocks +=
+                    if(res.persons[i].citationsFaculty != 'N/A'){
+                        personInfoBlocks +=
                         '</p>' +
                         '<div class="diagram__container">'+
                             '<canvas id="chartAll-'+res.persons[i].id+'"></canvas>' +
-                            '<img src="img/loading_spinner.gif" class="diagram__loading">'+
+                            '<img src="/img/loading_spinner.gif" class="diagram__loading">'+
                         '</div>';
                     } else{personInfoBlocks += res.persons[i].citationsFaculty+'</p>'}
 
@@ -338,7 +350,7 @@ function addPersonFoundContent(res){
                         '</p>' +
                         '<div class="diagram__container">'+
                             '<canvas id="chartPosition-'+res.persons[i].id+'"></canvas>' +
-                            '<img src="img/loading_spinner.gif" class="diagram__loading">'+
+                            '<img src="/img/loading_spinner.gif" class="diagram__loading">'+
                         '</div>';
                     } else{personInfoBlocks += res.persons[i].citationsRank+'</p>'}
 
@@ -435,7 +447,7 @@ function addSchoolFoundContent(res){
                         '<tr>'+
                             '<td>Name</td>'+
                             '<td>Position</td>'+
-                            '<td>Citations as of 2017</td>'+
+                            '<td>Citations as of '+contentYear+'</td>'+
                         '</tr>'+
                     '</thead>'+
                     '<tbody>'+
@@ -542,8 +554,8 @@ function saveHistory(currentTab, textValue) {
     }
 
     $.ajax({
-        type: "POST",
-        url: "metrics/save_history.php",
+        type: "get",
+        url: "/saveHistory",
         data: {
             name: textValue,
             type: currentTab

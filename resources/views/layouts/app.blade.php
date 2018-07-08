@@ -3,16 +3,16 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-    <link rel="icon" type="image/png" href="img/favicon.ico">
+    <link rel="icon" type="image/png" href="{{ asset('img/favicon.ico') }}">
     <title>{{ env('APP_NAME') }} - @yield('title')</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="assets/jquery-2.2.1.js"></script>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="{{ asset('assets/jquery-2.2.1.js') }}"></script>
 </head>
 <body>
 <div class="wrapper">
     <main>
         <header class="header">
-            <div class="container"><a class="header__logo" href="/"><img src="img/logo.png"></a>
+            <div class="container"><a class="header__logo" href="/"><img src="{{ asset('img/logo.png') }}"></a>
                 <div class="header__name">Scholarly Reputation <br /> and Metrics</div>
                 <nav>
                     <ul id="menu">
@@ -33,12 +33,19 @@
     <div class="page-buffer"></div>
 </div>
 <footer class="footer">
-    <div class="container"><a class="footer__leterImgContainer" href="mailto:scholarmetric@gmail.com"><img src="img/icon_email.png"></a><a class="footer__leterImgContainer" href="https://twitter.com/ScholarMetrics" target="_blank"><img src="img/icon_twitter.png"></a></div>
+    <div class="container">
+        <a class="footer__leterImgContainer" href="mailto:scholarmetric@gmail.com"><img src="{{ asset('img/icon_email.png') }}"></a><a class="footer__leterImgContainer" href="https://twitter.com/ScholarMetrics" target="_blank"><img src="{{ asset('img/icon_twitter.png') }}"></a>
+    </div>
 </footer>
 
-<script src="js/tooltip.js"></script>
-<script src="js/main.js"></script>
-@stack('footer-scripts')
+<script>
+    var getPersonByShortlinkUrl = '{{ route('ajax-shortlink') }}';
+    var getListUrl = '{{ route('ajax-getList') }}';
+    var contentYear = '{{ \App\Models\Content::year() ? \App\Models\Content::year() : '2018' }}'
+</script>
+<script src="{{ asset('js/tooltip.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+@stack('scripts')
 
 @if( request()->getHttpHost() == 'scholarmetrics.com' )
     <script>

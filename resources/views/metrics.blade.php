@@ -13,6 +13,7 @@
             <div class="clearfix"></div>
         </ul>
         <div class="search-area-container">
+            @section('personTab')
             <div class="search-area search-area--person" id="personTab">
                 <div class="search-area__leftSide">
                     <div class="search-area__step1">
@@ -31,13 +32,14 @@
                 <div class="search-area__rightSide"></div>
                 <div class="clearfix"></div>
             </div>
+            @show
             <div class="search-area search-area--department" id="departmentTab">
                 <div class="search-area__leftSide">
                     <div class="search-area__step1">
                         <h3 class="search-area__stepHeader"><span class="search-area__stepHeader-number">1</span>Input name of school</h3>
                         <form class="search-area__searchLine">
                             <input class="textfield" type="text" placeholder="Name" id="last_name">
-                            <!--input(type='submit', value='Search').submitBtn--><a class="searchBtn" href="#" id="searchDepartmentBtn"><img src="img/icon_search.png"></a><span class="search-area__note">*3 letters at least</span><img class="search-area__loading" src="img/loading_spinner.gif">
+                            <!--input(type='submit', value='Search').submitBtn--><a class="searchBtn" href="#" id="searchDepartmentBtn"><img src="{{ asset('img/icon_search.png') }}"></a><span class="search-area__note">*3 letters at least</span><img class="search-area__loading" src="{{ asset('img/loading_spinner.gif') }}">
                         </form>
                     </div>
                     <h3 class="search-area__stepHeader no-results">No matches found</h3>
@@ -67,14 +69,11 @@
     </div>
 @endsection
 
-@push('footer-scripts')
-    <script>
-        var getPersonListUrl = '{{ route('getPersonList') }}';
-        var getListUrl = '{{ route('getList') }}';
-    </script>
-    <script src="js/metrics.js"></script>
-    <script src="assets/Chart.min.js"></script>
-    <script src="js/charts.js"></script>
+@push('scripts')
+
+    <script src="{{ asset('js/metrics.js') }}"></script>
+    <script src="{{ asset('assets/Chart.min.js') }}"></script>
+    <script src="{{ asset('js/charts.js') }}"></script>
 @endpush
     {{--getPersonList--}}
 
