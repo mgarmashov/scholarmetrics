@@ -1,0 +1,176 @@
+.content
+  @media (min-width: $breakpoint-md)
+    margin-left: 60px
+
+section
+  //display: none
+
+.home
+
+  &__img
+    display: inline-block
+    width: 49%
+    margin: 20px 0 0 0
+    img
+      width: 100%
+    @media (max-width: $breakpoint-md - 1)
+      width: 100%
+      max-width: 250px
+      display: block
+      margin: 15px auto
+
+  &__text
+    display: inline-block
+    width: 42%
+    font-size: 20px
+    //max-width: 310px
+    vertical-align: top
+    margin: 15% 0 0 4%
+    line-height: 27px
+    letter-spacing: 0.5px
+    @media (max-width: $breakpoint-md - 1)
+      width: 100%
+      max-width: none
+      padding: 2em 0
+      margin: 0
+      text-align: center
+
+
+.metrics
+  &__form
+    font: 16px 'Raleway',sans-serif
+    //text-align: center
+    max-width: 100%
+    margin-bottom: 15px
+    label
+      margin-bottom: 15px
+      display: inline-block
+      font-weight: normal
+      width: 62px
+    input, .select
+      display: inline-block
+      width: 100%
+      max-width: 200px
+      //height: 35px
+      padding: 6px 12px
+      font-size: 14px
+      line-height: 1.42857143
+      color: #555
+      background-color: #fff
+      border: 1px solid #ccc
+      margin: 0 0 15px 15px
+      @media (max-width: 992px)
+        margin: 10px auto
+
+      &[type='submit']
+        cursor: pointer
+        width: 75px
+        color: #fff
+        background-color: #337ab7
+        border-color: #2e6da4
+        @media (min-width: 992px)
+          margin-left: 10px
+    .select
+      margin-left: 62px
+    &--additional
+      margin-top: -28px
+
+.school-resullt-div
+  font-size: 15px
+  thead
+    font-weight: bold
+
+.result-div
+  margin-top: 30px
+
+
+
+.about
+  //@media (min-width: $breakpoint-md)
+    margin-left: 60px
+  ul
+    li
+      list-style: disc outside
+      margin-left: 3em
+  a
+    i
+      margin: 0 5px
+    &:hover
+      text-decoration: underline
+
+
+.contact
+  &__socLinks
+    text-align: center
+    a
+      display: inline-block
+      margin-right: 10px
+      width: 45px
+      height: 45px
+      text-align: center
+      img
+        line-height: 45px
+        padding: 5px 0
+        width: 100%
+
+.contactForm
+  max-width: 380px
+  width: 100%
+  display: block
+  margin: 20px auto
+  font: 16px 'Raleway',sans-serif
+
+  input, textarea
+    display: inline-block
+    //line-height: 2.5em
+    width: 100%
+    background-color: rgba(229, 229, 229, 1)
+    border: 0px solid transparent
+    color: #383838
+    margin: 5px 0 0 0
+    border-radius: 5px
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6)
+    padding: 5px
+
+  textarea
+    height: 7em
+
+
+  input[type='submit']
+    border: none
+    cursor: pointer
+    background-color: rgba(139, 0, 0, 1)
+    color: #FEFDFD
+    float: right
+    width: auto
+
+.ajax-response
+  margin: 15px auto
+  text-align: center
+  font-size: 15px
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

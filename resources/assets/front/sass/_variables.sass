@@ -1,0 +1,50 @@
+//$topFieldWidth: 5%
+//$rightFieldWidth:5%
+//$bottomFieldWidth:5%
+//$leftFieldWidth: 20%
+//$menuWidth: 200px
+
+
+
+
+$mainColor: #E85A1D
+$bgColor: lighten($mainColor, 15%)
+//$additionalColor: #8ab839
+$additionalColor: #5B78A8
+$darkColor: #1d5e77
+$textColor: rgba(33, 42, 63, 1)
+$lightColor: rgba(255,255,255,1)
+
+$maxWidth: 1200px
+$breakpoint-xl: 1000px
+$breakpoint-md: 600px
+$breakpoint-sm: 500px
+//$breakpoint-vertical: 700px
+//
+//$smallHeaderWidth: 150px
+//
+//
+//
+//
+@mixin filter($text)
+  -webkit-filter: $text
+  -moz-filter: $text
+  -o-filter: $text
+  -ms-filter: $text
+  filter: $text
+//
+//
+//@mixin transition($text)
+//  -webkit-transition: $text
+//  -moz-transition: $text
+//  -o-transition: $text
+//  transition: $text
+
+
+@mixin bgColor($c1, $c2)
+  background: -moz-linear-gradient(top, $c1 0%, $c2 20%, $c2 80%, $c1 100%)
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$c1), color-stop(20%,$c2), color-stop(80%,$c2), color-stop(100%,$c1))
+  background: -webkit-linear-gradient(top, $c1 0%,$c2 20%,$c2 80%,$c1 100%)
+  background: -o-linear-gradient(top, $c1 0%,$c2 20%,$c2 80%,$c1 100%)
+  background: -ms-linear-gradient(top, $c1 0%,$c2 20%,$c2 80%,$c1 100%)
+  background: linear-gradient(to bottom, $c1 0%,$c2 20%,$c2 80%,$c1 100%)
