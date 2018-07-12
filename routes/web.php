@@ -28,6 +28,9 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+//Route::post('/send/{type?}', 'EmailController@send')->name('sendEmail');
+Route::any('/send/{type?}', 'EmailController_old@init')->name('sendEmail');
+
 Route::get('/person', function(){return redirect(route('metrics'));});
 
 Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>'auth'], function () {

@@ -35,4 +35,18 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'mailtrap' => [
+        "driver" => "smtp",
+        "host" => "smtp.mailtrap.io",
+        "port" => 2525,
+        "from" => [
+            "address" => "contacts@scholarmetrics.com",
+            "name" => "Mail from scholarmetrics.com"
+        ],
+        "username" => "41f692da456da4",
+        "password" => "a76111f38033de",
+        "sendmail" => "/usr/sbin/sendmail -bs",
+        "pretend" => false
+    ],
+
 ];

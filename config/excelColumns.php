@@ -24,12 +24,14 @@ return [
             'excelColumnName' => '%Cites2017',
             'dbColumnName' => 'cites_last_year_percent',
             'description' => '',
-            'type' => 'integer'],
+            'type' => 'integer'
+        ],
         [
             'excelColumnName' => '%Rank',
             'dbColumnName' => 'rank_percent',
             'description' => '',
-            'type' => 'integer'],
+            'type' => 'integer'
+        ],
         [
             'excelColumnName' => 'H-Index',
             'dbColumnName' => 'h_index',

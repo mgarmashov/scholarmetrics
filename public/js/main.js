@@ -104,11 +104,11 @@ function isValidEmailAddress(emailAddress) {
  /* ---------------------------------------------- */
 
 $("#contactForm, #contactForm_report").submit(function(e) {
-    
+
     if ($(this).attr('id')=='contactForm_report'){
-        var phpSrc = "js/contactForm_report.php"
+        var phpSrc = sendEmailUrl+"/report"
     } else{
-        var phpSrc = "js/contactForm.php"
+        var phpSrc = sendEmailUrl+"/contact"
     }
 
     e.preventDefault();
@@ -127,17 +127,20 @@ $("#contactForm, #contactForm_report").submit(function(e) {
     }
 
     else {
+        // var formData = new FormData($(this)[0]);
+        // console.log = formData;
         $.ajax({
-            type: "POST",
+            type: "get",
             url: phpSrc,
-            dataType: 'json',
+            // dataType: 'json',
+            // data: formData,
             data: {
                 c_email: c_email,
                 c_name: c_name,
                 c_subject: c_subject,
                 c_message: c_message
             },
-            beforeSend: function(result) {
+            beforeSend: function() {
                 $('#contact-form button').empty();
                 $('#contact-form button').append('<i class="fa fa-cog fa-spin"></i> Wait...');
             },

@@ -41,7 +41,8 @@
 <script>
     var getPersonByShortlinkUrl = '{{ route('ajax-shortlink') }}';
     var getListUrl = '{{ route('ajax-getList') }}';
-    var contentYear = '{{ \App\Models\Content::year() ? \App\Models\Content::year() : '2018' }}'
+    var contentYear = '{{ \App\Models\Content::year() ? \App\Models\Content::year() : '2018' }}';
+    var sendEmailUrl = '{{ route('sendEmail') }}';
 </script>
 <script src="{{ asset('js/tooltip.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>

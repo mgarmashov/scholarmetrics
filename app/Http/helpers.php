@@ -29,7 +29,22 @@ if (! function_exists('defineDbColumnType')) {
 if (! function_exists('checkIfNA')) {
     function checkIfNA($i)
     {
-        return ($i=='NA' || empty($i)) ? 'N/A' : $i;
+        return ($i=='NA' || empty($i) || $i=='x') ? 'N/A' : $i;
+    }
+
+}
+
+if (! function_exists('NAtoInteger')) {
+    function NAtoInteger($sheet, $column, $value)
+    {
+        $integerElement = array_where(config('excelColumns')[$sheet], function ($value, $key) use ($column) {
+            return $value['excelColumnName'] == $column && $value['type'] == 'integer';
+        });
+        if ( $integerElement ){
+            $value = preg_replace("/[^0-9]/", '', $value);
+            if (empty($value)) return 0;
+        }
+        return $value;
     }
 
 }

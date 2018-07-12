@@ -357,7 +357,7 @@ footer {
     padding: 5px; }
   .contactForm textarea {
     height: 7em; }
-  .contactForm input[type='submit'] {
+  .contactForm [type='submit'] {
     border: none;
     cursor: pointer;
     background-color: darkred;

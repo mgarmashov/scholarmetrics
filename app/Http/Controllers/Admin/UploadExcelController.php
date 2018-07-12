@@ -73,16 +73,28 @@ class UploadExcelController extends Controller
 
     protected function defineColumnsOrder($sheet){
         $rows = $this->spreadsheet->getSheetByName($sheet)->toArray();
-
+        $missedColumns = [];
         foreach ( config('excelColumns')[$sheet] as $column ){
             $column = $column['excelColumnName'];
 //            abort_unless(in_array($column, $rows[0]), 406, response()->json(['error' => 406, 'message' => "Can't find column '$column' in sheet '$sheet'. Names of columns should be placed at first row." ]));
             if( ! in_array($column, $rows[0])){
-                abort (response()->json( ['error' => 406, 'message' => "Can't find column &laquo;<b>$column</b>&raquo; in sheet &laquo;<b>$sheet</b>&raquo;. Names of columns should be placed at first row." ], 406));
+                $missedColumns[] = $column;
+                continue;
             }
 
             $this->columnsTitlesOrder[$sheet][$column] = array_search($column, $rows[0]);
         }
+        if (count($missedColumns) == 1){
+            abort (response()->json( ['error' => 406, 'message' => "Can't find column &laquo;<b>$column</b>&raquo; in sheet &laquo;<b>$sheet</b>&raquo;. Names of columns should be placed at first row." ], 406));
+        } elseif (count($missedColumns) > 1){
+            $message = "Can't find columns on sheet &laquo;<b>$sheet</b>&raquo;: <ul>";
+            foreach ($missedColumns as $column){
+                $message.= "<li>&laquo;<b>$column</b>&raquo;</li>";
+            }
+            $message .= "</ul>Names of columns should be placed at first row.";
+            abort (response()->json( ['error' => 406, 'message' => $message ], 406));
+        }
+
         return true;
     }
 
@@ -107,6 +119,7 @@ class UploadExcelController extends Controller
 
                 $column = $column['excelColumnName'];
                 $value = $rows[$i][ $this->getColumnNumber($sheet, $column) ];
+                $value = NAtoInteger($sheet, $column, $value);
 
 
                 if( defineDbColumnType($sheet, $column) == 'integer' ){
