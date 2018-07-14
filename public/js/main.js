@@ -102,7 +102,7 @@ function isValidEmailAddress(emailAddress) {
 /* ---------------------------------------------- /*
  * Contact form ajax
  /* ---------------------------------------------- */
-
+/*
 $("#contactForm, #contactForm_report").submit(function(e) {
 
     if ($(this).attr('id')=='contactForm_report'){
@@ -162,5 +162,6 @@ $("#contactForm, #contactForm_report").submit(function(e) {
     return false;
 
 });
+*/
 
 

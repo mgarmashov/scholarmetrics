@@ -28,8 +28,8 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-//Route::post('/send/{type?}', 'EmailController@send')->name('sendEmail');
-Route::any('/send/{type?}', 'EmailController_old@init')->name('sendEmail');
+Route::post('/send/contact', 'EmailController@sendContactEmail')->name('sendContactEmail');
+//Route::any('/send/{type?}', 'EmailController_old@init')->name('sendEmail');
 
 Route::get('/person', function(){return redirect(route('metrics'));});
 

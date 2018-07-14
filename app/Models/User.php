@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Mail\PasswordResetMail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use Illuminate\Support\Facades\Mail;
+
 
 class User extends Authenticatable
 {
@@ -26,4 +30,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function sendPasswordResetNotification($token)
+    {
+        Mail::send(new PasswordResetMail($this->email, $token));
+//        dd($token);
+//        dd($this->notify(new ResetPasswordNotification($token)));
+//        $this->notify(new ResetPasswordNotification($token));
+    }
 }

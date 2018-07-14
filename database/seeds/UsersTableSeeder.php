@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
             'login' => 'root',
             'name' => 'Root',
             'surname' => 'Root',
+            'email' => 'mikhail.garmashov@gmail.com',
             'password' => Hash::make('moscow')
         ]);
 
@@ -23,6 +24,7 @@ class UsersTableSeeder extends Seeder
             'login' => 'Thomas',
             'name' => 'Thomas',
             'surname' => 'Sanchez',
+            'email' => 'tomwsanchez@yahoo.com',
             'password' => Hash::make('0000')
         ]);
     }

@@ -4,28 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactsMail;
 
 class EmailController extends Controller
 {
     //
-    public function send(Request $request)
+    public function sendContactEmail(Request $request)
     {
 
 //        dd($request->all());
-        $title = $request->subject;
-        $email = $request->email;
-        $name = $request->name;
-        $text = $request->message;
+        $data = [
+            'subject' => $request->input('subject'),
+            'author_email' => $request->input('author_email'),
+            'name' => $request->input('name'),
+            'message' => $request->input('message')
+        ];
 
-        Mail::send('email.contacts', ['title' => $title, 'content' => $text], function ($message) use ($name)
-        {
+        Mail::send(new ContactsMail($data));
 
-            $message->from('contacts@scholarmetrics.com', $name);
-
-            $message->to('mikhail.garmashov@gmail.com');
-
-        });
-
-        return response()->json(['message' => 'Request completed']);
+        return response()->json(['message' => 'Thanks for contacting us!', 'sendstatus' => 1]);
     }
 }
