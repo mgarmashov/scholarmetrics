@@ -99,7 +99,7 @@
                                     <td>{!! $row->updated_at !!}</td>
                                     <td>{!! $row->name !!}</td>
                                     <td>{!! $row->type !!}</td>
-                                    <td>{!! $row->ip_address !!}</td>
+                                    <td>{!! $row->ip_address !!} ({{$row->state}},  {{$row->country_name}})</td>
                                 </tr>
                             @endforeach
 

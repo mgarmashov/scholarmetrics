@@ -20,25 +20,33 @@ class HistoryWriteController extends Controller
         $history->type = $request->type;
         $history->ip_address = $request->ip();
 
+
+
         if($request->ip() != '127.0.0.1' && $request->ip() != 'localhost'){
             $client = new Client();
             $res = $client->get('http://ip-api.com/json/'.$request->ip());
             //        $res->getStatusCode(); // 200
 
-            $clientInfo = $res->getBody()  ?? '';
+            $clientInfo = json_decode((string) $res->getBody())  ?? '';
+//            dd($clientInfo);
+            //        dd('http://ip-api.com/json/'.$request->ip(), $clientInfo);
+//            dd($clientInfo->country);
+            $output = [];
+            $history->country_name = $clientInfo->country ?? '';
+            $history->country_code = $clientInfo->countryCode ?? '';
+            $history->state = $clientInfo->regionName ?? '';
+
+            $history->save();
+
+            return response()->json("We wrote: $clientInfo->country ($clientInfo->countryCode), $clientInfo->regionName",200);
         }
 
 
 
-//        dd('http://ip-api.com/json/'.$request->ip(), $clientInfo);
-
-        $history->country_name = $clientInfo->country ?? '';
-        $history->country_code = $clientInfo->countryCode ?? '';
-        $history->state = $clientInfo->regionName ?? '';
 
         $history->save();
 
-        return response()->json('thanks',200);
+        return response()->json("Unable to write location",200);
 
     }
 
