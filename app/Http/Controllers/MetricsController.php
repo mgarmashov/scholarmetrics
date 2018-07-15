@@ -95,7 +95,11 @@ class MetricsController extends Controller
             foreach($positionRanks as $positionRank){
                 $infoForCharts[$currentPost][$positionRank->percent] = intval($positionRank->higher_num);
             }
-            ksort($infoForCharts[$currentPost]);
+
+            if($infoForCharts[$currentPost]){
+                ksort($infoForCharts[$currentPost]);
+            }
+
         }
 
         return $infoForCharts;
