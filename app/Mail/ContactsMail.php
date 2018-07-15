@@ -17,10 +17,12 @@ class ContactsMail extends Mailable
      * @return void
      */
     protected $data;
+    protected $type;
 
-    public function __construct($data)
+    public function __construct($data, $type)
     {
         $this->data = $data;
+        $this->type = $type;
     }
 
     /**
@@ -30,19 +32,28 @@ class ContactsMail extends Mailable
      */
     public function build()
     {
-        $mail = $this->from('notifications@scholarmetrics.com', 'Scholarmetrics Notification')
-            ->to(env('OWNER_EMAIL'))
-            ->subject('ScholarMetrics Contact Form')
-            ->view('emails.contacts')->with([
-                'subject' => $this->data['subject'],
-                'author_email' => $this->data['author_email'],
-                'name' => $this->data['name'],
-                'author_message' => $this->data['message'],
+        $mail = $this->from('notifications@scholarmetrics.com', 'Scholarmetrics Notification');
+        $mail = $mail->to(env('OWNER_EMAIL'));
+
+        if ($this->type == 'contacts'){
+            $mail = $mail->subject('ScholarMetrics Contact Form');
+            $text = "Somebody left a message on contact page at ".route('contact');
+        } else{
+            $mail = $mail->subject('ScholarMetrics Report Form');
+            $text = "Somebody left a message on metrics page at ".route('metrics');
+        }
+
+        $mail = $mail->view('emails.contacts')->with([
+                'subject' => $this->data['subject'] ?? '',
+                'author_email' => $this->data['author_email'] ?? '',
+                'name' => $this->data['name'] ?? '',
+                'author_message' => $this->data['message'] ?? '',
+                'text' => $text
 
             ]);
 
         if (env('COPY_TO_ADMIN') == true){
-            $mail->bcc(config('mail')['admin_email']);
+            $mail = $mail->bcc(config('mail')['admin_email']);
         }
 
         return $mail;
