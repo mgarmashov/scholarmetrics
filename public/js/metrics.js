@@ -278,11 +278,18 @@ function addPersonFoundContent(res){
                         personInfoBlocks +='<i class="fa fa-linkedin" title="LinkedIn profile is unavailable"></i>';
                     }
                     //if(res[i].facebook){personInfoBlocks +='<a title="Facebook" target="_blank" href="'+res[i].facebook+'"><i class="fa fa-facebook-f"></i></a>'}
+        var metricsLink = location.protocol+'//'+location.host+"/metrics";
+                    console.log(metricsLink);
+        var directLink = metricsLink + '/' + res.persons[i].shortlink;
+        console.log(directLink);
+        // var twitterLink = 'https://twitter.com/intent/tweet?original_referer=' + metricsLink + '&amp;ref_src=twsrc%5Etfw&amp;related=ScholarMetrics&amp;text=Check%20out%20my%20ScholarMetrics%20profile%20at&amp;tw_p=tweetbutton&amp;url='+ directLink + '&amp;via=ScholarMetrics';
+        var twitterLink = 'https://twitter.com/intent/tweet?text=Check out my ScholarMetrics profile at&url='+ directLink + '&amp;via=ScholarMetrics';
+        console.log(twitterLink);
         personInfoBlocks +=
                 '</div>'+
                 '<h3 class="search-area__results-title">'+res.persons[i].lastName+', '+res.persons[i].firstName+'</h3>'+
-                '<span class="search-area__results-shortlink">'+location.protocol+'//'+location.host+"/metrics/"+res.persons[i].shortlink+'</span>'+
-                '<a href="" target="_blank" class="twitter-share-button" data-url="'+location.protocol+'//'+location.host+'/metrics/'+res.persons[i].shortlink+'" data-text="Check out my ScholarMetrics profile at" data-size="large"><img src="/img/twitter-share.png" alt="Tweet"></a>'+
+                '<span class="search-area__results-shortlink">'+directLink+'</span>'+
+                '<a href="' + twitterLink + '" target="_blank" class="twitter-share-button" data-url="'+directLink+'" data-text="Check out my ScholarMetrics profile at" data-size="large"><img src="/img/twitter-share.png" alt="Tweet"></a>'+
                 '<div class="search-area__results-text">'+
                     '<p><b>Position/rank: </b>'+res.persons[i].position+'</p>'+
                     '<p><b>University: </b>'+res.persons[i].university+'</p>'+
