@@ -12,12 +12,13 @@ class Cites extends Model
         'Professor'
     ];
 
-    public static function employee($schoolName){
+    public static function employee($schoolName)
+    {
         $employees = self::where('current_school', $schoolName)->get();
 
         $personList = [];
-        foreach ($employees as $employee){
-            if (!in_array($employee->position, self::$interestingPositions)){
+        foreach ($employees as $employee) {
+            if (!in_array($employee->position, self::$interestingPositions)) {
                 continue;
             }
             $personList[] = [

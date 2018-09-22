@@ -6,7 +6,11 @@ use App\Models\Schools;
 use Illuminate\Http\Request;
 use App\Models\Cites;
 
-
+/**
+ * This class is used for showing data by shortlink.
+ * New - because there is used new format of link
+ *
+ */
 class NewPersonController extends MetricsController
 {
 

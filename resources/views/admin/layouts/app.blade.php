@@ -18,7 +18,6 @@
           apply the skin class to the body tag so the changes take effect. -->
     <link rel="stylesheet" href="{{ asset('assets/adminLTE/css/skins/skin-blue.min.css') }}">
     <!-- DataTables -->
-{{--    <link rel="stylesheet" href="{{ asset('assets/adminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">--}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     @stack('styles')
@@ -88,12 +87,6 @@ desired effect
 
     <!-- Main Footer -->
     <footer class="main-footer">
-        {{--<!-- To the right -->--}}
-        {{--<div class="pull-right hidden-xs">--}}
-            {{--Anything you want--}}
-        {{--</div>--}}
-        {{--<!-- Default to the left -->--}}
-        {{--<strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.--}}
     </footer>
 
 </div>
@@ -107,8 +100,6 @@ desired effect
 <script src="{{ asset('assets/adminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- DataTables -->
     <script src="{{ asset('assets/adminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    {{--<script src="{{ asset('assets/adminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>--}}
-    {{--<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>--}}
     <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <!-- SlimScroll -->
 <script src="{{ asset('assets/adminLTE/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>

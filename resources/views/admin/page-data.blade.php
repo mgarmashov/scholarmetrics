@@ -6,7 +6,7 @@
 @section('title', 'Current Metrics Data')
 
 @section('content')
-{{--{{dd($data)}}--}}
+
     <div class="row">
         <div class="col-md-12">
             @foreach($data as $sheetname => $rows)

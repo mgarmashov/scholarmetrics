@@ -31,8 +31,6 @@ Route::get('/contact', function () {
 Route::post('/send/contact', 'EmailController@sendContactEmail')->name('sendContactEmail');
 Route::post('/send/report', 'EmailController@sendReportEmail')->name('sendReportEmail');
 
-//Route::any('/send/{type?}', 'EmailController_old@init')->name('sendEmail');
-
 Route::get('/person', function(){return redirect(route('metrics'));});
 
 Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware'=>'auth'], function () {

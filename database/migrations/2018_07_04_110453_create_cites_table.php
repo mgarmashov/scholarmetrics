@@ -25,30 +25,6 @@ class CreateCitesTable extends Migration
                 }
 
             }
-//            $table->text('name')->nullable();
-//
-//            $table->integer('year')->nullable();
-//                $table->integer('cites_last_year_count')->nullable();
-//            $table->integer('cites_last_year_percent')->nullable();
-//
-//                $table->integer('rank_percent')->nullable();
-//            $table->integer('h_index')->nullable();
-//
-//            $table->text('link_googleScholar')->nullable();
-//            $table->text('current_school')->nullable();
-//            $table->text('position')->nullable();
-//            $table->integer('PhDYear')->nullable();
-//            $table->text('PhDSchool')->nullable();
-//            $table->integer('years')->nullable();
-//            $table->text('first_name')->nullable();
-//            $table->text('middle_name')->nullable();
-//            $table->text('last_name')->nullable();
-//            $table->text('interests')->nullable();
-//            $table->text('link_researchGate')->nullable();
-//            $table->text('link_academiaEdu')->nullable();
-//            $table->text('link_linkedin')->nullable();
-//            $table->text('link_twitter')->nullable();
-//            $table->text('link_website')->nullable();
             $table->timestamps();
 
         });

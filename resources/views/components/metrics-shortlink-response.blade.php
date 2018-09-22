@@ -1,6 +1,6 @@
 @extends('metrics')
 @php($person = $data['persons'][0])
-{{--{{dd($data)}}--}}
+
 @section('personTab')
 <div class="search-area search-area--person" id="personTab">
     <div class="search-area__leftSide">
@@ -53,7 +53,7 @@
                     data-text="Check out my ScholarMetrics profile at" data-size="large"><img
                         src="{{ asset('img/twitter-share.png') }}" alt="Tweet"></a>
             <div class="search-area__results-text"><p><b>Position/rank: </b>{{ $person['position'] }}</p>
-                {{--{{dd($person)}}--}}
+
                 <p><b>University: </b>{{ $person['university'] }}</p>
                 <p><b>University rank: </b>{{ \App\Models\Schools::schoolRank($person['university']) }}</p>
                 <p><b>Degree School: </b>{{ $person['degreeSchool'] }} ({{ $person['year'] }})</p>
@@ -89,24 +89,7 @@
                 @else
                     'N/A'
                 @endif
-                {{--<div class="diagram__container">--}}
-                    {{--<div class="chartjs-size-monitor"--}}
-                         {{--style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">--}}
-                        {{--<div class="chartjs-size-monitor-expand"--}}
-                             {{--style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">--}}
-                            {{--<div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>--}}
-                        {{--</div>--}}
-                        {{--<div class="chartjs-size-monitor-shrink"--}}
-                             {{--style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">--}}
-                            {{--<div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="diagram__legend"><p><span style="color: #E85A1D">•</span> Thomas Sanchez (86%)</p>--}}
-                        {{--<p><span class="diagram__legend-line" style="color: #888">—</span> Other faculty</p></div>--}}
-                    {{--<canvas id="chartAll-1024" style="display: block; width: 302px; height: 151px;" width="302"--}}
-                            {{--height="151" class="chartjs-render-monitor"></canvas>--}}
-                    {{--<img src="{{ asset('img/loading_spinner.gif') }}" class="diagram__loading">--}}
-                {{--</div>--}}
+
                 <p><b>Citation percentile ranking compared to other faculty in same position ({{ $person['position'] }}):&nbsp;</b></p>
                 @if(!empty($person['citationsRank']))
                     <div class="diagram__container">
@@ -117,23 +100,7 @@
                     'N/A'
                 @endif
 
-                {{--<div class="diagram__container">--}}
-                    {{--<div class="chartjs-size-monitor"--}}
-                         {{--style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">--}}
-                        {{--<div class="chartjs-size-monitor-expand"--}}
-                             {{--style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">--}}
-                            {{--<div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>--}}
-                        {{--</div>--}}
-                        {{--<div class="chartjs-size-monitor-shrink"--}}
-                             {{--style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">--}}
-                            {{--<div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
-                    {{--<div class="diagram__legend"><p><span style="color: #E85A1D">•</span> Thomas Sanchez (69%)</p>--}}
-                        {{--<p><span class="diagram__legend-line" style="color: #888">—</span> Other faculty</p></div>--}}
-                    {{--<canvas id="chartPosition-1024" width="302" height="151" class="chartjs-render-monitor"--}}
-                            {{--style="display: block; width: 302px; height: 151px;"></canvas>--}}
-                    {{--<img src="{{ asset('img/loading_spinner.gif') }}" class="diagram__loading"></div>--}}
+
             </div>
         </div>
     </div>

@@ -9,12 +9,6 @@
             @csrf
 
             <input type="hidden" name="token" value="{{ $token }}">
-            {{--{{dd(\Illuminate\Support\Facades\Hash::make($token))}}--}}
-            {{--{{dd (\Illuminate\Support\Facades\DB::table('password_resets')->where('token', \Illuminate\Support\Facades\Hash::make($token))->first())}}--}}
-            {{--<input type="hidden" name="email" value="{{ \Illuminate\Support\Facades\DB::table('password_resets')->where('token', \Illuminate\Support\Facades\Hash::make($token))->first()->email }}">--}}
-            {{--<div class="form-group row">--}}
-                {{--<label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>--}}
-
 
             <div class="form-group has-feedback{{ $errors->has('email') ? ' has-error' : '' }}">
                 <input id="email" type="email" placeholder="Repeat E-mail address" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>

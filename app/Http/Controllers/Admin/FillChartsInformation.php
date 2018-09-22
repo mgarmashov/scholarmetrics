@@ -8,13 +8,21 @@ use App\Models\Position;
 use App\Models\PositionsRank;
 use Illuminate\Http\Request;
 
+/**
+ * This class is used during Uploading excel.
+ * It's 2nd step. All data is placed to database.
+ * And now we need to calculate numbers of statistic.
+ * We place it in db. And later we will use them for drawing charts.
+ *
+ */
 class FillChartsInformation extends Controller
 {
 
     protected $list = [];
     protected $positions;
 
-    public function writePositionRanks(){
+    public function writePositionRanks()
+    {
         $this->positions = Position::pluck('name');
 
         PositionsRank::truncate();
@@ -27,20 +35,20 @@ class FillChartsInformation extends Controller
 
     public function writeCurrentPositionRanks()
     {
-        foreach ($this->positions as $position){
+        foreach ($this->positions as $position) {
             $this->list = [];
 
-            if ($position === 'all_positions' || $position === 'Position'){
+            if ($position === 'all_positions' || $position === 'Position') {
                 continue;
             }
 
             $cites = Cites::where('position', $position)->get();
 
-            if (empty($cites)){
+            if (empty($cites)) {
                 continue;
             }
 
-            foreach ($cites as $person){
+            foreach ($cites as $person) {
                 $this->takeMaxValueForCurrentPercent($person);
             }
 
@@ -48,14 +56,14 @@ class FillChartsInformation extends Controller
 
 
             ksort($this->list);
-//            dd($position);
-//            dd(Position::where('name',$position)->first());
-            foreach ($this->list as $percent => $score){
+
+            //write 100 values for current positon in db
+            foreach ($this->list as $percent => $score) {
                 $positionRank = new PositionsRank;
 
                 $positionRank->percent = $percent;
                 $positionRank->higher_num = $score;
-                $positionRank->position_id = Position::where('name',$position)->first()->id;
+                $positionRank->position_id = Position::where('name', $position)->first()->id;
                 $positionRank->position_name = $position;
 
                 $positionRank->save();
@@ -66,40 +74,23 @@ class FillChartsInformation extends Controller
 
     public function writeAllPositionsRanks()
     {
-//        $positions = array_values($positions);
-//        foreach ($positions as $position){
         $cites = Cites::all();
 
-        foreach ($cites as $person){
+        foreach ($cites as $person) {
             $this->takeMaxValueForCurrentPercent($person, true);
         }
-//        foreach ($cites as $person){
-//            if(!isset($person->cites_last_year_percent) || !isset($person->cites_last_year_count)){
-//                continue;
-//            }
-//            if (!isset($list[$person->cites_last_year_percent]) || $person->cites_last_year_count > $list[$person->cites_last_year_percent]) {
-//                $list[$person->cites_last_year_percent] = $person->cites_last_year_count;
-//            }
-//        }
 
         $this->fillEmptyPercents();
-//        for($i=0;$i<=100;$i++){
-//
-//            if (!array_key_exists($i, $list)) {
-//                $list[$i] = $list[($i-1)];
-////                if(isset($list[($i-1)])){
-////                    $list[$i] = $list[($i-1)];
-////                } else {$list[$i] = 0;}
-//            }
-//        }
 
         ksort($this->list);
-        foreach ($this->list as $percent => $score){
+
+        //write 100 values for all positions in db
+        foreach ($this->list as $percent => $score) {
             $positionRank = new PositionsRank;
 
             $positionRank->percent = $percent;
             $positionRank->higher_num = $score;
-            $positionRank->position_id = Position::where('name','all_positions')->first()->id;
+            $positionRank->position_id = Position::where('name', 'all_positions')->first()->id;
             $positionRank->position_name = 'all_positions';
 
             $positionRank->save();
@@ -108,31 +99,31 @@ class FillChartsInformation extends Controller
 
     }
 
-
-    protected function takeMaxValueForCurrentPercent($person, $isAllPositions = false){
+    /**
+     * If there is many values that equal the same percent, we use the largest value.
+     *
+     */
+    protected function takeMaxValueForCurrentPercent($person, $isAllPositions = false)
+    {
         $count = $person->cites_last_year_count;
-        $currentPercent = $isAllPositions ? $person->cites_last_year_percent :$person->rank_percent;
+        $currentPercent = $isAllPositions ? $person->cites_last_year_percent : $person->rank_percent;
 
         if (empty($this->list[$currentPercent]) || $count > $this->list[$currentPercent]) {
             $this->list[$currentPercent] = $count;
         }
     }
 
-    protected function fillEmptyPercents(){
-        for($percent=1; $percent<=100; $percent++){
-            if (isset ($this->list[$percent])){
+    /**
+     * This class is used, because we need 100 points. Id we have less, chart will not be full.
+     *
+     */
+    protected function fillEmptyPercents()
+    {
+        for ($percent = 1; $percent <= 100; $percent++) {
+            if (isset ($this->list[$percent])) {
                 continue;
             }
-//            $previousElement = $this->list[($percent-1)] ?? null;
-
-            $this->list[$percent] = $this->list[($percent-1)] ?? 0;
-//            if( isset($previousElement) ){
-//                $this->list[$percent] = $previousElement;
-//            } else {
-//                $this->list[$percent] = 0;
-//            }
+            $this->list[$percent] = $this->list[($percent - 1)] ?? 0;
         }
     }
-//    }
-
 }

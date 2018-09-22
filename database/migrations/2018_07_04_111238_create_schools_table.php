@@ -24,13 +24,6 @@ class CreateSchoolsTable extends Migration
                 }
 
             }
-//            $table->integer('rank')->nullable();
-//            $table->text('name')->nullable();
-//            $table->integer('faculty')->nullable();
-//            $table->integer('total')->nullable();
-//            $table->integer('median')->nullable();
-//            $table->integer('mean')->nullable();
-//            $table->text('url')->nullable();
             $table->timestamps();
         });
     }

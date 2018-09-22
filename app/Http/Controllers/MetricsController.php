@@ -7,7 +7,10 @@ use App\Models\Schools;
 use Illuminate\Http\Request;
 use App\Models\Cites;
 
-
+/**
+ * This class is used for showing data in Metrics page. It's called by ajax.
+ *
+ */
 class MetricsController extends Controller
 {
     protected $cites;
@@ -19,7 +22,7 @@ class MetricsController extends Controller
         $searchType = $request->searchType;
         $this->textValue = $request->textValue;
 
-        if (!empty($request->shortlink)){
+        if (!empty($request->shortlink)) {
             $this->cites = $this->getPersonData();
             $this->responseData = $this->getPersonsInfo();
 
@@ -27,7 +30,7 @@ class MetricsController extends Controller
             $this->cites = $this->getCitesData();
             $this->responseData = $this->getPersonsInfo();
 
-        }else {
+        } else {
             $this->responseData = $this->getSchoolsInfo();
         }
 
@@ -38,9 +41,8 @@ class MetricsController extends Controller
     protected function getCitesData()
     {
         $model = new Cites;
-        return $model->where('last_name', 'like', '%'.$this->textValue.'%')->get();
+        return $model->where('last_name', 'like', '%' . $this->textValue . '%')->get();
     }
-
 
 
     protected function getPersonsInfo()
@@ -75,10 +77,7 @@ class MetricsController extends Controller
             $chosenPersonsPosts[] = $row->position;
         }
 
-//        dd(array_unique($chosenPersonsPosts));
         $chartsData = $this->getChartNumbers(array_unique($chosenPersonsPosts));
-
-//dd($chartsData);
 
         return [
             'persons' => $personList,
@@ -86,17 +85,16 @@ class MetricsController extends Controller
         ];
     }
 
-    protected function getChartNumbers($chosenPersonsPosts){
-
-
+    protected function getChartNumbers($chosenPersonsPosts)
+    {
         $infoForCharts = array();
-        foreach($chosenPersonsPosts as $currentPost){
+        foreach ($chosenPersonsPosts as $currentPost) {
             $positionRanks = PositionsRank::where('position_name', $currentPost)->get();
-            foreach($positionRanks as $positionRank){
+            foreach ($positionRanks as $positionRank) {
                 $infoForCharts[$currentPost][$positionRank->percent] = intval($positionRank->higher_num);
             }
 
-            if($infoForCharts[$currentPost]){
+            if ($infoForCharts[$currentPost]) {
                 ksort($infoForCharts[$currentPost]);
             }
 
@@ -105,11 +103,11 @@ class MetricsController extends Controller
         return $infoForCharts;
     }
 
-
-    protected function getSchoolsInfo(){
+    protected function getSchoolsInfo()
+    {
 
         $schools = new Schools;
-        $results = $schools->where('name', 'like', '%'.$this->textValue.'%')->get();
+        $results = $schools->where('name', 'like', '%' . $this->textValue . '%')->get();
 
         $schoolsList = [];
         $chosenPersonsPosts[0] = 'all_positions';
@@ -126,11 +124,4 @@ class MetricsController extends Controller
 
         return $schoolsList;
     }
-
-
-
-
-
-
-
 }

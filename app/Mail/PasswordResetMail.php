@@ -18,7 +18,6 @@ class PasswordResetMail extends Mailable
      * @return void
      */
 
-    //todo надо эт овсё как то переделать, и сделать через нотификации
     protected $email;
     protected $token;
 

@@ -8,7 +8,7 @@ use App\Mail\ContactsMail;
 
 class EmailController extends Controller
 {
-    //
+
     public function sendContactEmail(Request $request)
     {
 
@@ -23,8 +23,6 @@ class EmailController extends Controller
 
         return response()->json(['message' => 'Successful! Thanks for contacting us!', 'sendstatus' => 1]);
     }
-
-
 
 
     public function sendReportEmail(Request $request)

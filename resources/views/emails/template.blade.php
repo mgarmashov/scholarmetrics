@@ -273,11 +273,6 @@
                                 <br> by Thomas Sanchez
                             </td>
                         </tr>
-                        {{--<tr>--}}
-                            {{--<td class="content-block powered-by">--}}
-                                {{--Powered by <a href="http://htmlemail.io">HTMLemail</a>.--}}
-                            {{--</td>--}}
-                        {{--</tr>--}}
                     </table>
                 </div>
                 <!-- END FOOTER -->

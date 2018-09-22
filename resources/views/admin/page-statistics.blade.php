@@ -58,8 +58,6 @@
                         <ul>
 
                             @foreach($tops['byLink'] as $row)
-                                {{--{{dd($row)}}--}}
-
                                 <li>{{ $row['name'] }}: {{ $row['total'] }}</li>
                             @endforeach
                         </ul>
@@ -125,25 +123,5 @@
 @endsection
 
 @push('scripts')
-    {{--<script>--}}
-        {{--// $(document).ready(function() {--}}
-            {{--@foreach($data as $sheetname => $rows)--}}
-            {{--$('#historyTable').DataTable({--}}
-                {{--responsive: {--}}
-                    {{--details: {--}}
-                        {{--type: 'column',--}}
-                        {{--target: 'tr'--}}
-                    {{--}--}}
-                {{--},--}}
-                {{--columnDefs: [ {--}}
-                    {{--className: 'control',--}}
-                    {{--orderable: false,--}}
-                    {{--targets:   0--}}
-                {{--} ],--}}
-                {{--order: [ 1, 'asc' ]--}}
-            {{--});--}}
-            {{--@endforeach--}}
-        {{--})--}}
-    {{--</script>--}}
 
 @endpush
