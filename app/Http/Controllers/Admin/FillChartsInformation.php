@@ -28,9 +28,15 @@ class FillChartsInformation extends Controller
     public function writeCurrentPositionRanks()
     {
         foreach ($this->positions as $position){
+            $this->list = [];
+
+            if ($position === 'all_positions' || $position === 'Position'){
+                continue;
+            }
+
             $cites = Cites::where('position', $position)->get();
 
-            if (empty($cites) || $position == 'all_positions' || $position == 'Position'){
+            if (empty($cites)){
                 continue;
             }
 
