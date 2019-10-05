@@ -38,7 +38,6 @@ class EmailController extends Controller
     public function sendReportEmail(Request $request)
     {
         $validator = Validator::make(request()->all(), [
-            'subject' => 'required',
             'author_email' => 'required',
             'message' => 'required',
             recaptchaFieldName() => recaptchaRuleName()

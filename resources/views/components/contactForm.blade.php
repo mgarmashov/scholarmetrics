@@ -1,7 +1,9 @@
 <form class="contactForm" id="contactForm" method="post" action="{{ route($messageType) }}">
     <input type="text" placeholder="Name" name='name' id="c_name">
     <input type="email" placeholder="E-mail" name='author_email' id="c_email">
+  @if($messageType == 'sendContactEmail')
     <input type="text" placeholder="Subject" name='subject' id="c_subject">
+  @endif
     <textarea name="message" placeholder="Message" id="c_message"></textarea>
     {!! \Biscolab\ReCaptcha\Facades\ReCaptcha::htmlFormSnippet() !!}
     @csrf
@@ -19,7 +21,9 @@
 
         var c_name = $("#c_name").val();
         var c_email = $("#c_email").val();
-        var c_subject = $("#c_subject").val();
+        @if($messageType == 'sendContactEmail')
+          var c_subject = $("#c_subject").val();
+        @endif
         var c_message = $("#c_message").val();
         var responseMessage = $('.ajax-response');
 
@@ -51,6 +55,7 @@
             error: function(result) {
               responseMessage.fadeIn(500);
               responseMessage.html('<i class="fa fa-warning"></i> '+result.responseJSON.message);
+              grecaptcha.reset();
               $("#sendMessageBtn").html('Send');
             }
           });

@@ -53,7 +53,7 @@
             </div>
             <div class="search-area search-area--reports" id="reportsTab">
                 <p class="usualParagraph">Please let us know if you would like a custom tabulation of the data, either for individuals or departments. Describe the variables you would like to see as well as particular characteristics you are interested in. We will contact you with questions and let you know if there is a cost involved.</p>
-{{--                @include('components.contactForm', ['messageType'=>'sendReportEmail'])--}}
+                @include('components.contactForm', ['messageType'=>'sendReportEmail'])
 
                 <div class="clearfix"></div>
             </div>
@@ -61,3 +61,10 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+
+    <script src="{{ asset('js/metrics.js') }}"></script>
+    <script src="{{ asset('assets/Chart.min.js') }}"></script>
+    <script src="{{ asset('js/charts.js') }}"></script>
+@endpush
