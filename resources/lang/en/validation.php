@@ -142,5 +142,6 @@ return [
     */
 
     'attributes' => [],
+    'recaptcha' => 'Please check the captcha form',
 
 ];

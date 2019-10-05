@@ -52,17 +52,9 @@
                 <div class="clearfix"></div>
             </div>
             <div class="search-area search-area--reports" id="reportsTab">
-                <p class="usualParagraph">Please let us know if you would like a custom tabulation of the data, either for individuals or departments. Describe the variables you would like to see as well as particular characteristics you are interested in. We will contact you with questions and let you know if there is a cost involved.
+                <p class="usualParagraph">Please let us know if you would like a custom tabulation of the data, either for individuals or departments. Describe the variables you would like to see as well as particular characteristics you are interested in. We will contact you with questions and let you know if there is a cost involved.</p>
+                @include('components.contactForm', ['messageType'=>'sendReportEmail'])
 
-                <form class="contactForm" id="contactForm" method="post" action="{{ route('sendContactEmail') }}">
-                    <input type="text" placeholder="Name" name='name' id="c_name">
-                    <input type="email" placeholder="E-mail" name='author_email' id="c_email">
-                    <textarea name="message" placeholder="Message" id="c_message"></textarea>
-                    @csrf
-                    <button id="sendMessageBtn" type="submit">Send</button>
-                </form>
-                <div class="ajax-response"></div>
-                </p>
                 <div class="clearfix"></div>
             </div>
             <!--#loadingTab.search-area.metrics__loading-->
@@ -75,48 +67,4 @@
     <script src="{{ asset('js/metrics.js') }}"></script>
     <script src="{{ asset('assets/Chart.min.js') }}"></script>
     <script src="{{ asset('js/charts.js') }}"></script>
-
-    <script>
-        $("#contactForm").submit(function(e) {
-
-            e.preventDefault();
-
-            var c_name = $("#c_name").val();
-            var c_email = $("#c_email").val();
-            var c_message = $("#c_message").val();
-            var responseMessage = $('.ajax-response');
-
-            if (( c_name== "" || c_email == "" || c_message == "") || (!isValidEmailAddress(c_email) )) {
-                responseMessage.fadeIn(500);
-                responseMessage.html('<i class="fa fa-warning"></i> Check all fields.');
-            }
-
-            else {
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('sendReportEmail') }}",
-                    dataType: 'json',
-                    data: $(this).serialize(),
-                    beforeSend: function() {
-                        $("#sendMessageBtn").html('<i class="fa fa-cog fa-spin"></i> Wait...');
-                    },
-                    success: function(result) {
-                        if(result.sendstatus == 1) {
-                            responseMessage.html(result.message);
-                            responseMessage.fadeIn(500);
-                            $('#contactForm').fadeOut(500);
-                        } else {
-                            // $('#contact-form button').empty();
-                            $("#sendMessageBtn").html('<i class="fa fa-retweet"></i> Try again.');
-                            responseMessage.html(result.message);
-                            responseMessage.fadeIn(1000);
-                        }
-                    }
-                });
-            }
-
-        });
-
-    </script>
 @endpush
-
