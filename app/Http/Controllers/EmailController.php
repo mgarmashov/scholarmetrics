@@ -5,12 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactsMail;
+use Illuminate\Support\Facades\Validator;
 
 class EmailController extends Controller
 {
 
     public function sendContactEmail(Request $request)
     {
+        $validator = Validator::make(request()->all(), [
+            'subject' => 'required',
+            'author_email' => 'required',
+            'message' => 'required',
+            recaptchaFieldName() => recaptchaRuleName()
+        ]);
+        if($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->all()[0]], 422);
+        }
 
         $data = [
             'subject' => $request->input('subject'),
@@ -27,6 +37,15 @@ class EmailController extends Controller
 
     public function sendReportEmail(Request $request)
     {
+        $validator = Validator::make(request()->all(), [
+            'subject' => 'required',
+            'author_email' => 'required',
+            'message' => 'required',
+            recaptchaFieldName() => recaptchaRuleName()
+        ]);
+        if($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->all()[0]], 422);
+        }
 
         $data = [
             'author_email' => $request->input('author_email'),
